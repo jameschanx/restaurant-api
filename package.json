@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jameschanx/restaurant-api/issues"
   },
-  "homepage": "https://github.com/jameschanx/restaurant-api#readme"
+  "homepage": "https://github.com/jameschanx/restaurant-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
