@@ -1,0 +1,1 @@
+A restaurant API for educational purposes
