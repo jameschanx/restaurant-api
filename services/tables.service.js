@@ -10,43 +10,41 @@ const tables = {
 }
 // ========================================================
 
-module.exports = {
-    getTables: (req, res) => {
-        for(i in tables.size){
-            let num =i+1
-            if(tables[num].occupied==tfalse){
-                res.write('Table '+ num + '  status: available')
-            }else{
-                res.write('Table '+ num + '  status: unavailable')
+const checkTable=(tableNumber,occupied)=> {
+        if(tableNumber in tables){
+            if(tables[tableNumber].occupied!=occupied){ 
+                throw 'table is not in proper status, operation fail'
             }
         }
-        return res.status(200).json(tables)
+        else{
+            throw 'table not in the list'
+        }
+}
+
+module.exports = {
+    getTables: (req, res) => {
+        for(let i in tables){
+            if(tables[i].occupied==false){
+                res.write('Table '+ i + '  status: available\n')
+            }else{
+                res.write('Table '+ i + '  status: unavailable\n')
+            }
+        }
+        res.end()
+        return res.status(200)
     },
     bookTable: (req, res) => {
         const tableNumber = req.body.tableNumber
+        checkTable(tableNumber,false)
         tables[tableNumber].occupied = true
         res.sendStatus(200);
     },
     cleanTable:(req, res) => {
         const tableNumber = req.body.tableNumber
-        table[tableNumber].occupied = false
+        checkTable(tableNumber,true)
+        tables[tableNumber].occupied = false
         res.sendStatus(200);
-    },
-    checkTable:(req, res) => {
-        const tableNumber = req.body.tableNumber
-        if(tableNumber < tables.size){
-            if(table[tableNumber].occupied==true){
-                //return current number table status
-                return res.status(200).json(tables[tableNumber])
-            }else{
-                res.send(404);
-            }
-        }
-        else{
-            res.write('Table number not in the list')
-        }
     }
-
 }
 
 // TODO change getTables logic to say
