@@ -12,7 +12,7 @@ const tables = {
 
 const checkTable=(tableNumber,occupied)=> {
         if(tableNumber in tables){
-            if(tables[tableNumber].occupied!=occupied){ 
+            if(tables[tableNumber].occupied!=occupied){
                 throw 'table is not in proper status, operation fail'
             }
         }
@@ -32,6 +32,9 @@ module.exports = {
         }
         res.end()
         return res.status(200)
+    },
+    getTablesJSON: (req, res) => {
+        return res.status(200).send(tables)
     },
     bookTable: (req, res) => {
         const tableNumber = req.body.tableNumber
