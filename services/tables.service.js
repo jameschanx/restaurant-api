@@ -12,13 +12,40 @@ const tables = {
 
 module.exports = {
     getTables: (req, res) => {
+        for(i in tables.size){
+            let num =i+1
+            if(tables[num].occupied==tfalse){
+                res.write('Table '+ num + '  status: available')
+            }else{
+                res.write('Table '+ num + '  status: unavailable')
+            }
+        }
         return res.status(200).json(tables)
     },
     bookTable: (req, res) => {
         const tableNumber = req.body.tableNumber
         tables[tableNumber].occupied = true
         res.sendStatus(200);
+    },
+    cleanTable:(req, res) => {
+        const tableNumber = req.body.tableNumber
+        table[tableNumber].occupied = false
+        res.sendStatus(200);
+    },
+    checkTable:(req, res) => {
+        const tableNumber = req.body.tableNumber
+        if(tableNumber < tables.size){
+            if(table[tableNumber].occupied==true){
+                //return current number table status
+            }else{
+                res.send(404);
+            }
+        }
+        else{
+            res.write('Table number not in the list')
+        }
     }
+
 }
 
 // TODO change getTables logic to say
