@@ -37,6 +37,7 @@ module.exports = {
         if(tableNumber < tables.size){
             if(table[tableNumber].occupied==true){
                 //return current number table status
+                return res.status(200).json(tables[tableNumber])
             }else{
                 res.send(404);
             }
